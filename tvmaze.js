@@ -1,3 +1,5 @@
+const MISSING_IMAGE = "https://tinyurl.com/tv-missing";
+
 /** Given a query string, return array of matching shows:
  *     { id, name, summary, episodesUrl }
  */
@@ -26,7 +28,7 @@ async function searchShows(query) {
       id: show.id,
       name: show.name,
       summary: show.summary,
-      image: show.image.medium
+      image: show.image ? show.image.medium : MISSING_IMAGE
     };
   });
 
@@ -45,6 +47,7 @@ function populateShows(shows) {
     let $item = $(
       `<div class="col-md-6 col-lg-3 Show" data-show-id="${show.id}">
          <div class="card" data-show-id="${show.id}">
+           <img class="card-img-top" src="${show.image}">
            <div class="card-body">
              <h5 class="card-title">${show.name}</h5>
              <p class="card-text">${show.summary}</p>
